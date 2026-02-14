@@ -17,48 +17,48 @@ void shell_loop() {
     int status;
 
     while (1) {
-        printf("masked-shell> ");
-        fflush(stdout);
+        printf( "masked-shell> " );
+        fflush( stdout );
 
-        if (fgets(input, sizeof(input), stdin) == NULL) {
-            printf("\n");
+        if ( fgets( input, sizeof( input ), stdin ) == NULL ) {
+            printf( "\n" );
             break; 
         }
 
-        input[strcspn(input, "\n")] = '\0';
+        input[strcspn( input, "\n" )] = '\0';
 
-        if (strcmp(input, "exit") == 0) {
+        if ( strcmp( input, "exit" ) == 0 ) {
             break;
         }
 
         int i = 0;
-        token = strtok(input, " ");
-        while (token != NULL && i < MAX_ARGS - 1) {
+        token = strtok( input, " " );
+        while ( token != NULL && i < MAX_ARGS - 1 ) {
             args[i++] = token;
-            token = strtok(NULL, " ");
+            token = strtok( NULL, " " );
         }
         args[i] = NULL;
 
-        if (args[0] == NULL) {
+        if ( args[0] == NULL ) {
             continue;
         }
 
         pid = fork();
 
-        if (pid < 0) {
-            perror("fork");
-        } else if (pid == 0) {
-            execvp(args[0], args);
-            perror("execvp");
-            exit(EXIT_FAILURE);
+        if ( pid < 0 ) {
+            perror( "fork" );
+        } else if ( pid == 0 ) {
+            execvp( args[0], args );
+            perror( "execvp" );
+            exit( EXIT_FAILURE );
         } else {
-            waitpid(pid, &status, 0);
+            waitpid( pid, &status, 0 );
         }
     }
 }
 
 int main() {
-    printf("Welcome to mysh (type 'exit' to quit)\n");
+    printf( "Welcome to masked-shell (type 'exit' to quit)\n" );
     shell_loop();
     return 0;
 }
