@@ -6,9 +6,9 @@ int main() {
 
     int i;
 
-    for(i=0;i<10;i++){
-    factorial *= array[i];
+    for( i = 0; i < 10; i++ ){
+        factorial *= array[i];
     }
 
-    printf("10! is %d.\n", factorial);
+    printf( "10! is %d.\n", factorial );
 }
